@@ -11,6 +11,13 @@ function debounce(func, wait) {
     };
 }
 
+// Detect if device has touch capability
+const isTouchDevice = () => {
+    return (('ontouchstart' in window) ||
+            (navigator.maxTouchPoints > 0) ||
+            (navigator.msMaxTouchPoints > 0));
+};
+
 // Cursor visibility management
 function toggleCursorVisibility(visible) {
     const cursor = document.querySelector('.cursor');
@@ -23,6 +30,12 @@ function toggleCursorVisibility(visible) {
 // Custom cursor
 const cursor = document.querySelector('.cursor');
 const cursorFollower = document.querySelector('.cursor-follower');
+
+// Hide cursor on touch devices
+if (isTouchDevice()) {
+    if (cursor) cursor.style.display = 'none';
+    if (cursorFollower) cursorFollower.style.display = 'none';
+}
 
 let mouseX = 0;
 let mouseY = 0;
